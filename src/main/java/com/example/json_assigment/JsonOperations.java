@@ -4,11 +4,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.json.*;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
 public class JsonOperations {
 
@@ -30,7 +31,7 @@ public class JsonOperations {
             Object obj=parser.parse(file);
             JSONArray CDlist=(JSONArray) obj;
 
-            System.out.println(CDlist);
+            print_all(CDlist);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -69,8 +70,16 @@ public class JsonOperations {
                 t1= (String) j2.get("TITLE");
                 if (t1.equals(tittle))
                 {
+
                     System.out.println("this album exist");
-                    System.out.println(j1);
+                    JSONObject json = new JSONObject((Map) j1.get("CD"));
+                    System.out.println("Artist is:  "+json.get("ARTIST"));
+                    System.out.println("Company is:  "+json.get("COMPANY"));
+                    System.out.println("Country is:  "+json.get("COUNTRY"));
+                    System.out.println("Price is:  "+json.get("PRICE"));
+                    System.out.println("Tittle is:  "+json.get("TITLE"));
+                    System.out.println("Year is:  "+json.get("YEAR"));
+
                     isexist=true;
                     break;
                 }
@@ -97,7 +106,13 @@ public class JsonOperations {
                 if (t1.equals(artist))
                 {
                     System.out.println("this album exist");
-                    System.out.println(j1);
+                    JSONObject json = new JSONObject((Map) j1.get("CD"));
+                    System.out.println("Artist is:  "+json.get("ARTIST"));
+                    System.out.println("Company is:  "+json.get("COMPANY"));
+                    System.out.println("Country is:  "+json.get("COUNTRY"));
+                    System.out.println("Price is:  "+json.get("PRICE"));
+                    System.out.println("Tittle is:  "+json.get("TITLE"));
+                    System.out.println("Year is:  "+json.get("YEAR"));
                     isexist=true;
                     break;
                 }
@@ -105,6 +120,22 @@ public class JsonOperations {
         }
         else if (JA1==null || isexist==false)
             System.out.println("this album isn't exist");
+    }
+    void print_all (JSONArray J1)
+    {
+        for (Object o : J1) {
+            JSONObject json = new JSONObject((Map) o);
+            json= (JSONObject) json.get("CD");
+            System.out.println("Artist is:  "+json.get("ARTIST"));
+            System.out.println("Company is:  "+json.get("COMPANY"));
+            System.out.println("Country is:  "+json.get("COUNTRY"));
+            System.out.println("Price is:  "+json.get("PRICE"));
+            System.out.println("Tittle is:  "+json.get("TITLE"));
+            System.out.println("Year is:  "+json.get("YEAR"));
+            System.out.println("     ---------------------------------------------------------------------------------     ");
+
+    }
+
     }
 }
 
